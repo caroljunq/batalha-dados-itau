@@ -14,7 +14,19 @@ df_internacao = pd.read_csv('AutIntHos-DataSUS-2013-2018.csv',sep=";")
 # dicio = dict((el, i) for i, el in indexacao_municipio)
 #
 # df_internacao['CNES_MUNICIPIO'] = df_internacao['CNES_MUNICIPIO'].replace(dicio)
-#
+
+# Normalização Cidade - Inteiro (indexacao municipio)
+leito_tipo = df_internacao['LEITO_TIPO']
+# Valore únicos
+leito_tipo = set(leito_tipo)
+
+leito_tipo = list(leito_tipo)
+
+indexacao_leito = [(index, leito_tipo[index]) for index in range(len(leito_tipo))]
+
+dicio = dict((el, i) for i, el in indexacao_leito)
+
+df_internacao['LEITO_TIPO'] = df_internacao['LEITO_TIPO'].replace(dicio)
 
 # Correlação de variáveis de internações
 # Complexidade e Valor Total
@@ -39,7 +51,20 @@ print(df_internacao['DIARIA'].corr(df_internacao['VALOR_TOTAL'],method='spearman
 # print(df_internacao['VALOR_TOTAL'].corr(df_internacao['VALOR_UTI'],method='kendall'))
 # print(df_internacao['VALOR_TOTAL'].corr(df_internacao['VALOR_UTI'],method='spearman'))
 
-# Correlção Idade e Complexidade
-print(df_internacao['VALOR_TOTAL'].corr(df_internacao['VALOR_UTI'],method='pearson'))
-print(df_internacao['VALOR_TOTAL'].corr(df_internacao['VALOR_UTI'],method='kendall'))
-print(df_internacao['VALOR_TOTAL'].corr(df_internacao['VALOR_UTI'],method='spearman'))
+# Correlção Morte e Tipo de Leito
+# Há uma correlação entre 41% de correlação entre morte  e o tipo de leiot da internação
+print(df_internacao['MORTE'].corr(df_internacao['LEITO_TIPO'],method='pearson'))
+print(df_internacao['MORTE'].corr(df_internacao['LEITO_TIPO'],method='kendall'))
+print(df_internacao['MORTE'].corr(df_internacao['LEITO_TIPO'],method='spearman'))
+
+# Correlação de Complexidade e Morte
+# Correlaçao negativa. Não correlação entre COMPLEXIDADE e Morte
+print(df_internacao['MORTE'].corr(df_internacao['COMPLEXIDADE'],method='pearson'))
+print(df_internacao['MORTE'].corr(df_internacao['COMPLEXIDADE'],method='kendall'))
+print(df_internacao['MORTE'].corr(df_internacao['COMPLEXIDADE'],method='spearman'))
+
+# Correlação Tempo de Internação e MORTE
+# Há relação de 24% de corelação entre Morte e o tempo de internação
+print(df_internacao['MORTE'].corr(df_internacao['DIARIA'],method='pearson'))
+print(df_internacao['MORTE'].corr(df_internacao['DIARIA'],method='kendall'))
+print(df_internacao['MORTE'].corr(df_internacao['DIARIA'],method='spearman'))

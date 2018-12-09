@@ -13,3 +13,9 @@ O Brasil possui mais de 5 mil hospitais públicos, somando mais de 300 mil leito
 * AWS - EC2, EMR e S3.
 * Cloudberry
 * Python (Pandas)
+
+# Grupo
+* Carol Junqueira
+* Victoria Comarin
+* Felipe Tanso
+* Arthur Annibal
